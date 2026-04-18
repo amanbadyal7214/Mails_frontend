@@ -10,10 +10,10 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Parse emails: split by comma, newline -> trim -> filter empty chunks
     const emailList = emails.split(/[\n,]+/).map(e => e.trim()).filter(e => e !== '');
-    
+
     if (emailList.length === 0) {
       setStatus({ type: 'error', message: 'Please enter at least one valid email address.' });
       return;
@@ -28,7 +28,7 @@ function App() {
     setStatus({ type: '', message: '' });
 
     try {
-      const response = await fetch('http://localhost:5000/api/send-bulk-emails', {
+      const response = await fetch('https://mails-bakend.onrender.com/api/send-bulk-emails', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ function App() {
       setEmails('');
       setSubject('');
       setBody('');
-      
+
     } catch (error) {
       setStatus({ type: 'error', message: error.message || 'An unexpected error occurred. Please try again.' });
     } finally {
